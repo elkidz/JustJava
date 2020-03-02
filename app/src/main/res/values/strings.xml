@@ -4,7 +4,14 @@
     <string name="price">Price</string>
     <string name="order">Order</string>
     <string name="order_summary">Order Summary</string>
-    <string name="toppings">toppings</string>
+    <string name="toppings" translatable="false">Toppings</string>
     <string name="whipped_cream">Whipped Cream</string>
     <string name="chocolate">Chocolate</string>
+    <string name="name">Name</string>
+    <string name="messageName">Name: </string>
+    <string name="messageWhippedCream">Add whipped cream? </string>
+    <string name="messageChocolate">Add chocolate?"</string>
+    <string name="messageQuantidade">Quantity: </string>
+    <string name="messageTotal">Total: $</string>
+    <string name="messageThankYou">Thank you!</string>
 </resources>

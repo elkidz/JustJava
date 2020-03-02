@@ -1,6 +1,7 @@
 package com.example.justjava;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void increment(View view) {
-        if (quantity == 100){
-            Toast.makeText(this,"You cannot have more than 100 coffees", Toast.LENGTH_SHORT).show();
+        if (quantity == 100) {
+            Toast.makeText(this, "You cannot have more than 100 coffees", Toast.LENGTH_SHORT).show();
             return;
         }
         quantity = quantity + 1;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             quantity = quantity - 1;
         } else {
             quantity = 0;
-            Toast.makeText(this,"You cannot have less than 1 coffee", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You cannot have less than 1 coffee", Toast.LENGTH_SHORT).show();
         }
         displayQuantity(quantity);
     }
@@ -61,12 +62,21 @@ public class MainActivity extends AppCompatActivity {
 
         // Calculate the price
         int price = calculatePrice(hasWhippedCream, hasChocolate);
-        String priceMessage = createOrderSummary(name,price,hasWhippedCream,hasChocolate);
-        displayMessage(priceMessage);
+        String priceMessage = createOrderSummary(name, price, hasWhippedCream, hasChocolate);
+        // displayMessage(priceMessage);
 
         // Display the order summary on the screen
         String message = createOrderSummary(name, price, hasWhippedCream, hasChocolate);
-        displayMessage(message);}
+        // displayMessage(message);
+
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("*/*");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Just Java order for " + name);
+        intent.putExtra(Intent.EXTRA_TEXT, priceMessage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     /**
@@ -79,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private int calculatePrice(boolean addWhippedCream, boolean addChocolate) {
         int basePrice = 5;
 
-        if (addWhippedCream){
+        if (addWhippedCream) {
             basePrice = basePrice + 1;
         }
 
@@ -99,12 +109,12 @@ public class MainActivity extends AppCompatActivity {
      * @return text summary
      */
     private String createOrderSummary(String name, int price, boolean addWhippedCream, boolean addChocolate) {
-        String priceMessage = "Name: " + name;
-        priceMessage += "\nAdd whipped cream? " + addWhippedCream;
-        priceMessage += "\nAdd chocolate? " + addChocolate;
-        priceMessage += "\nQuantity: " + quantity;
-        priceMessage += "\nTotal: $" + price;
-        priceMessage += "\nThank you!";
+        String priceMessage = getString(R.string.messageName) + name;
+        priceMessage += "\n" + getString(R.string.messageWhippedCream) + addWhippedCream;
+        priceMessage += "\n" + getString(R.string.messageChocolate) + addChocolate;
+        priceMessage += "\n" + getString(R.string.messageQuantidade) + quantity;
+        priceMessage += "\n" + getString(R.string.messageTotal) + price;
+        priceMessage += "\n\n" + getString(R.string.messageThankYou);
         return priceMessage;
     }
 
@@ -117,12 +127,11 @@ public class MainActivity extends AppCompatActivity {
         quantityTextView.setText("" + numberOfCoffees);
     }
 
-    /**
+    /*
      * This method displays the given text on the screen.
-     */
     private void displayMessage(String message) {
         TextView orderSummaryTextView = findViewById(R.id.order_summary_text_view);
         orderSummaryTextView.setText(message);
     }
-
+*/
 }
